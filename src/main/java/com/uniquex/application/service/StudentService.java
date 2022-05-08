@@ -35,9 +35,9 @@ public class StudentService {
     }
 
 
-    public List<Student> sortStudents() {
+    public List<Student> sortStudents(String sortingAlgorithm, String saveToFile) {
         List<Student> studentList = studentRepository.findAll();
-        return sortingService.sortStudents();
+        return sortingService.sortStudents(sortingAlgorithm,saveToFile);
     }
 
 

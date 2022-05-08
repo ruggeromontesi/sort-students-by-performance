@@ -39,9 +39,9 @@ public class StudentDataController {
     }
 
 
-    @GetMapping("/students/sort")
-    public List<Student> sortStudents() {
-        final List<Student> studentData = studentService.sortStudents();
+    @GetMapping("/students/sort/{sortingAlgorithm}/{saveToFile}")
+    public List<Student> sortStudents(@PathVariable("sortingAlgorithm") String sortingAlgorithm,@PathVariable("saveToFile") String saveToFile ) {
+        final List<Student> studentData = studentService.sortStudents(sortingAlgorithm, saveToFile);
         return studentData;
     }
 

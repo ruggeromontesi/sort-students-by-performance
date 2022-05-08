@@ -15,11 +15,36 @@ public class SortingService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Student> sortStudents(){
-        //TODO
-        List<Student> studentList = studentRepository.findAll();
-        Collections.sort(studentList, Comparator.comparingDouble(Student::getRating).reversed());
-        return studentList;
+    @Autowired
+    private PrintToFileService printToFileService;
+
+    public List<Student> sortStudents(String sortingAlgorithm,String saveToFile){
+
+        List<Student> sortedList = null;
+
+        if(sortingAlgorithm.equals("bubblesort")){
+            sortedList =  sortStudentsWithBubbleSort();
+        }
+
+        if(sortingAlgorithm.equals("mergesort")){
+            sortedList =   sortStudentsWithBubbleSort();
+        }
+
+        if(sortingAlgorithm.equals("heapsort")){
+            sortedList =   sortStudentsWithHeapSort();
+        }
+
+        if(sortedList == null) {
+            sortedList =  sortStudentsWithBubbleSort();
+        }
+
+        if(saveToFile.equals("saveToFile")){
+            printToFileService.printToFile(sortedList);
+        }
+
+        return sortedList;
+
+
 
     }
 
