@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "24de3b63-7d86-447f-bcbb-b10d1fbe8b0b",
+		"name": "uniquex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload students from file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/uploadFile/results.csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadFile",
+						"results.csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort and  do not save to file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students/sort/bubblesort",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"sort",
+						"bubblesort"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sort and save to file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/students/sort/bubblesort/saveToFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"students",
+						"sort",
+						"bubblesort",
+						"saveToFile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
