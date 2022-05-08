@@ -14,6 +14,9 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private SortingService sortingService;
+
     public List<Student> getStudentData() {
         //TODO
         Student student1 = new Student("Student1", 8.5);
@@ -26,11 +29,18 @@ public class StudentService {
     public List<Student> saveStudents(List<Student> studentList) {
         //TODO
         studentRepository.saveAll(studentList);
-
         return studentRepository.findAll();
 
 
     }
+
+
+    public List<Student> sortStudents() {
+        List<Student> studentList = studentRepository.findAll();
+        return sortingService.sortStudents();
+    }
+
+
 
 
 }

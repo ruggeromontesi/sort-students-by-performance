@@ -36,8 +36,16 @@ public class StudentDataController {
         String output = fileStorageService.readFile(fileName);
         return "dummyOutput";
 
-
     }
+
+
+    @GetMapping("/students/sort")
+    public List<Student> sortStudents() {
+        final List<Student> studentData = studentService.sortStudents();
+        return studentData;
+    }
+
+
 
 
 
