@@ -1,10 +1,14 @@
 package com.uniquex.application.service;
 
+import com.uniquex.application.entity.SortingReport;
 import com.uniquex.application.entity.Student;
+import com.uniquex.application.repository.SortingReportRepository;
 import com.uniquex.application.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,9 +20,12 @@ public class SortingService {
     private StudentRepository studentRepository;
 
     @Autowired
+    private SortingReportRepository sortingReportRepository;
+
+    @Autowired
     private PrintToFileService printToFileService;
 
-    public List<Student> sortStudents(String sortingAlgorithm,String saveToFile){
+    public List<Student> sortStudents(String sortingAlgorithm,boolean saveToFile){
 
         if(studentRepository.findAll().isEmpty()) {
             return new ArrayList<>();
@@ -42,7 +49,7 @@ public class SortingService {
             sortedList =  sortStudentsWithBubbleSort();
         }
 
-        if(saveToFile != null && saveToFile.equals("saveToFile")){
+        if(saveToFile){
             printToFileService.printToFile(sortedList);
         }
 
@@ -52,21 +59,39 @@ public class SortingService {
     public List<Student> sortStudentsWithBubbleSort(){
         //TODO : IMPLEMENT Bubble sort algorithm
         List<Student> studentList = studentRepository.findAll();
+        Instant now = Instant.now();
         studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
+        Instant later = Instant.now();
+        Duration duration  = Duration.between(now,later);
+        sortingReportRepository.save(new SortingReport(duration,studentList.size(),"bubblesort"));
+        studentRepository.deleteAll();
+        studentRepository.saveAll(studentList);
         return studentList;
     }
 
     public List<Student> sortStudentsWithHeapSort(){
-        //TODO : IMPLEMENT Heap sort algorithm
+        //TODO : IMPLEMENT Bubble sort algorithm
         List<Student> studentList = studentRepository.findAll();
+        Instant now = Instant.now();
         studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
+        Instant later = Instant.now();
+        Duration duration  = Duration.between(now,later);
+        sortingReportRepository.save(new SortingReport(duration,studentList.size(),"heapsort"));
+        studentRepository.deleteAll();
+        studentRepository.saveAll(studentList);
         return studentList;
     }
 
     public List<Student> sortStudentsWithMergeSort(){
-        //TODO : IMPLEMENT Merge sort algorithm
+        //TODO : IMPLEMENT Bubble sort algorithm
         List<Student> studentList = studentRepository.findAll();
+        Instant now = Instant.now();
         studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
+        Instant later = Instant.now();
+        Duration duration  = Duration.between(now,later);
+        sortingReportRepository.save(new SortingReport(duration,studentList.size(),"mergesort"));
+        studentRepository.deleteAll();
+        studentRepository.saveAll(studentList);
         return studentList;
     }
 }

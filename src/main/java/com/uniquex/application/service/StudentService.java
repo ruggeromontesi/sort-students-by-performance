@@ -25,7 +25,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public List<Student> sortStudents(String sortingAlgorithm, String saveToFile) {
+    public List<Student> sortStudents(String sortingAlgorithm, boolean saveToFile) {
         return sortingService.sortStudents(sortingAlgorithm,saveToFile);
     }
 

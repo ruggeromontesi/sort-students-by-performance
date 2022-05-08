@@ -45,12 +45,12 @@
 			"response": []
 		},
 		{
-			"name": "Sort and  do not save to file",
+			"name": "Sort and  save to file",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/students/sort/bubblesort",
+					"raw": "http://localhost:8080/students/sort?sortingAlgorithm=bubblesort&saveToFile=true",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -58,20 +58,29 @@
 					"port": "8080",
 					"path": [
 						"students",
-						"sort",
-						"bubblesort"
+						"sort"
+					],
+					"query": [
+						{
+							"key": "sortingAlgorithm",
+							"value": "bubblesort"
+						},
+						{
+							"key": "saveToFile",
+							"value": "true"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "sort and save to file",
+			"name": "Sort and  do not save to file",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/students/sort/bubblesort/saveToFile",
+					"raw": "http://localhost:8080/students/sort?sortingAlgorithm=bubblesort",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -79,9 +88,13 @@
 					"port": "8080",
 					"path": [
 						"students",
-						"sort",
-						"bubblesort",
-						"saveToFile"
+						"sort"
+					],
+					"query": [
+						{
+							"key": "sortingAlgorithm",
+							"value": "bubblesort"
+						}
 					]
 				}
 			},
