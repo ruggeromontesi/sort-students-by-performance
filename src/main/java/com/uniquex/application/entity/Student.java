@@ -1,6 +1,5 @@
 package com.uniquex.application.entity;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

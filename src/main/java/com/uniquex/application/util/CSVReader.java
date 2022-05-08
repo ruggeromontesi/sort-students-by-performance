@@ -19,7 +19,7 @@ public class CSVReader {
 
       try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
-         while ((line = br.readLine()) != null) {
+         while ((line = br.readLine()) != null && line.contains(",")) {
 
             String[] studentResult = line.split(cvsSplitBy);
             Student student = new Student()

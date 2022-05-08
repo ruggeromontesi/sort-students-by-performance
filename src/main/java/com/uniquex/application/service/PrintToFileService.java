@@ -15,30 +15,23 @@ import static com.uniquex.application.constants.Constants.RESULT_FILENAME;
 @Service
 public class PrintToFileService {
 
-
-
     public void printToFile(List<Student> sortedList){
+        if(sortedList.isEmpty()) {
+            return;
+        }
         File directory = new File(RESULT_DIRECTORY);
         if (!directory.exists()){
             directory.mkdirs();
         }
 
-        BufferedWriter writer = null;
-
         try {
             StringBuffer output = new StringBuffer("");
-            writer = new BufferedWriter(new FileWriter(RESULT_DIRECTORY + "/" + RESULT_FILENAME));
-
-            sortedList.forEach(student -> output.append(student.toString() + "\n"));
-
+            BufferedWriter writer = new BufferedWriter(new FileWriter(RESULT_DIRECTORY + "/" + RESULT_FILENAME));
+            sortedList.forEach(student -> output.append(student.toString()).append("\n"));
             writer.write(output.toString());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 }

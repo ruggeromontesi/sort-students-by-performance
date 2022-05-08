@@ -5,7 +5,7 @@ import com.uniquex.application.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,6 +19,10 @@ public class SortingService {
     private PrintToFileService printToFileService;
 
     public List<Student> sortStudents(String sortingAlgorithm,String saveToFile){
+
+        if(studentRepository.findAll().isEmpty()) {
+            return new ArrayList<>();
+        }
 
         List<Student> sortedList = null;
 
@@ -38,44 +42,31 @@ public class SortingService {
             sortedList =  sortStudentsWithBubbleSort();
         }
 
-        if(saveToFile.equals("saveToFile")){
+        if(saveToFile != null && saveToFile.equals("saveToFile")){
             printToFileService.printToFile(sortedList);
         }
 
         return sortedList;
-
-
-
     }
-
 
     public List<Student> sortStudentsWithBubbleSort(){
         //TODO : IMPLEMENT Bubble sort algorithm
-
         List<Student> studentList = studentRepository.findAll();
-        Collections.sort(studentList, Comparator.comparingDouble(Student::getRating).reversed());
+        studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
         return studentList;
     }
 
     public List<Student> sortStudentsWithHeapSort(){
         //TODO : IMPLEMENT Heap sort algorithm
-
         List<Student> studentList = studentRepository.findAll();
-        Collections.sort(studentList, Comparator.comparingDouble(Student::getRating).reversed());
+        studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
         return studentList;
     }
-
 
     public List<Student> sortStudentsWithMergeSort(){
         //TODO : IMPLEMENT Merge sort algorithm
-
         List<Student> studentList = studentRepository.findAll();
-        Collections.sort(studentList, Comparator.comparingDouble(Student::getRating).reversed());
+        studentList.sort(Comparator.comparingDouble(Student::getRating).reversed());
         return studentList;
     }
-
-
-
-
-
 }

@@ -13,9 +13,10 @@ public class FileStorageService {
     @Autowired
     StudentService studentService;
 
-    public String readFile(String fileName) {
+    public List<Student> readFile(String fileName) {
+        fileName = "resources/" + fileName;
         List<Student> studentList = CSVReader.parse(fileName);
         studentService.saveStudents(studentList);
-        return "Output of readFile(MultipartFile file)";
+        return studentService.saveStudents(studentList);
     }
 }
