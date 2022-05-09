@@ -32,7 +32,7 @@ public class StudentDataController {
     }
 
     @PostMapping(value = {"/students/sort"})
-    public ResponseEntity<List<Student>> sortStudentsAlternative(@RequestParam String sortingAlgorithm, @RequestParam(name = "saveToFile", required = false) Boolean saveToFile) {
+    public ResponseEntity<List<Student>> sortStudentsAlternative(@RequestParam String sortingAlgorithm, @RequestParam(name = "saveToFile", defaultValue = "false") Boolean saveToFile) {
 
         return new ResponseEntity<>(studentService.sortStudents(sortingAlgorithm, saveToFile), HttpStatus.OK);
     }

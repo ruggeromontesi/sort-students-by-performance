@@ -15,6 +15,9 @@ public class SortingReport {
     private int numberOfRecords;
     private String sortingAlgorithm;
 
+    public SortingReport() {
+    }
+
     public SortingReport(Duration duration, int numberOfRecords, String sortingAlgorithm) {
         this.duration = duration;
         this.numberOfRecords = numberOfRecords;
@@ -29,11 +32,23 @@ public class SortingReport {
         return duration;
     }
 
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     public int getNumberOfRecords() {
         return numberOfRecords;
     }
 
+    public void setNumberOfRecords(int numberOfRecords) {
+        this.numberOfRecords = numberOfRecords;
+    }
+
     public String getSortingAlgorithm() {
         return sortingAlgorithm;
+    }
+
+    public void setSortingAlgorithm(String sortingAlgorithm) {
+        this.sortingAlgorithm = sortingAlgorithm;
     }
 }
