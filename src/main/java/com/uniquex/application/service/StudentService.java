@@ -1,11 +1,12 @@
 package com.uniquex.application.service;
 
 import com.uniquex.application.entity.Student;
-import com.uniquex.application.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import com.uniquex.application.repository.StudentRepository;
 
 @Service
 public class StudentService {
