@@ -21,6 +21,23 @@
 			</li>
 		</ul>
 	</div>
+	<form action="#" data-th-action="@{/sort}" data-th-object="${model}" method="post">
+		<button type="submit" name="action" value="sort">sort</button>
+
+	</form>
+
+
+
+	<div>Students</div>
+	<div>
+		<ul>
+			<li th:each="student : ${students}">
+				<a th:href="${student}" th:text="${student.name}"/>
+				<a />
+				<a th:href="${student}" th:text="${student.rating}"/>
+			</li>
+		</ul>
+	</div>
 
 </body>
 </html>

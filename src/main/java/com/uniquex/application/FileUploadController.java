@@ -26,6 +26,7 @@ public class FileUploadController {
 
    private final StorageService storageService;
 
+   @Autowired
    private  StudentService studentService;
 
 
@@ -81,6 +82,8 @@ public class FileUploadController {
                               .build().toUri().toString()).
                   collect(Collectors.toList()));*/
 
+      model.addAttribute("students", studentService.getStudents());
+
       return "studentUploadForm";
    }
 
@@ -99,7 +102,21 @@ public class FileUploadController {
       redirectAttributes.addFlashAttribute("message",
             "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-      return "redirect:/";
+      return "redirect:/read";
+   }
+
+   @PostMapping("/sort")
+   public String sortStudents(Model model ) {
+
+      studentService.sortStudents("mergeSort",false);
+
+      model.addAttribute("students", studentService.getStudents());
+
+
+
+
+
+      return "redirect:/read";
    }
 
 
