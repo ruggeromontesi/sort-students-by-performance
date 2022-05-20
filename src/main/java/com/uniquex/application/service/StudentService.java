@@ -30,4 +30,9 @@ public class StudentService {
         return sortingService.sortStudents(sortingAlgorithm,saveToFile);
     }
 
+    public void deleteAll() {
+        studentRepository.deleteAll();
+    }
+
+
 }

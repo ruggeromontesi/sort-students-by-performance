@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from com.uniquex.application.repository -->
 	</parent>
 	<groupId>com.uniquex.application</groupId>
-	<artifactId>uniquex-assignemnt</artifactId>
-	<version>1.0.0</version>
+	<artifactId>uniquex-assignement</artifactId>
+	<version>1.0.1</version>
 	<name>assignemnt for uniquex</name>
 	<description>application to sort students by their performance.</description>
 	<properties>

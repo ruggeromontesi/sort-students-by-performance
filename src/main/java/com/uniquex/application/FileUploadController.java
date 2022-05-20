@@ -73,15 +73,6 @@ public class FileUploadController {
 
    @GetMapping("/read")
    public String read(Model model) throws IOException {
-      /*model.addAttribute("files",
-            storageService.loadAll().map(path ->
-                        MvcUriComponentsBuilder.fromMethodName(
-                                    FileUploadController.class,
-                                    "serveFile",
-                                    path.getFileName().toString())
-                              .build().toUri().toString()).
-                  collect(Collectors.toList()));*/
-
       model.addAttribute("students", studentService.getStudents());
 
       return "studentUploadForm";
@@ -93,8 +84,6 @@ public class FileUploadController {
    @PostMapping("/read")
    public String readFileUpload(@RequestParam("file") MultipartFile file,
                                   RedirectAttributes redirectAttributes) {
-
-
       fileReadingService.readFile(file);
 
       storageService.store(file);
@@ -107,30 +96,26 @@ public class FileUploadController {
 
    @PostMapping("/sort")
    public String sortStudents(Model model ) {
-
       studentService.sortStudents("mergeSort",false);
-
       model.addAttribute("students", studentService.getStudents());
-
-
-
-
 
       return "redirect:/read";
    }
 
-
-
+   @PostMapping(value = {"/reset"})
+   public String reset(Model model) {
+      studentService.deleteAll();
+      model.addAttribute("students", studentService.getStudents());
+      return "redirect:/read";
+   }
 
    @ExceptionHandler(StorageFileNotFoundException.class)
    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
       return ResponseEntity.notFound().build();
    }
 
-
    public String ruggeroCreaNuovaDirectory() {
       return "Directory created";
    }
-
 
 }
