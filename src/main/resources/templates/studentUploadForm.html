@@ -39,6 +39,18 @@
 			</li>
 		</ul>
 	</div>
+    <table>
+			<tr>
+				<th>Name</th>
+				<br>
+				<th>Score</th>
+			</tr>
+		<tr th:each="student : ${students}">
+			<td th:text="${student.name}"></td>
+			<br>
+			<td th:text="${student.rating}"></td>
+		</tr>
+	</table>
 
 </body>
 </html>

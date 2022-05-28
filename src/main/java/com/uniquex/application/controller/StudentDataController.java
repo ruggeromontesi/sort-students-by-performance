@@ -1,8 +1,12 @@
-package com.uniquex.application;
+package com.uniquex.application.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import com.uniquex.application.StorageFileNotFoundException;
+import com.uniquex.application.StorageService;
+import com.uniquex.application.entity.Student;
 import com.uniquex.application.service.FileReadingService;
 import com.uniquex.application.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class FileUploadController {
+public class StudentDataController {
 
 
    private final StorageService storageService;
@@ -33,7 +37,7 @@ public class FileUploadController {
    private final FileReadingService fileReadingService;
 
    @Autowired
-   public FileUploadController(StorageService storageService,StudentService studentService) {
+   public StudentDataController(StorageService storageService, StudentService studentService) {
       this.storageService = storageService;
       fileReadingService = new FileReadingService(studentService);
    }
@@ -43,7 +47,7 @@ public class FileUploadController {
       model.addAttribute("files",
             storageService.loadAll().map(path ->
                   MvcUriComponentsBuilder.fromMethodName(
-                        FileUploadController.class,
+                        StudentDataController.class,
                         "serveFile",
                         path.getFileName().toString())
                         .build().toUri().toString()).
@@ -116,6 +120,13 @@ public class FileUploadController {
 
    public String ruggeroCreaNuovaDirectory() {
       return "Directory created";
+   }
+
+
+   @GetMapping("/students")
+   public List<Student> getStudentData() {
+      final List<Student> studentData = studentService.getStudents();
+      return studentData;
    }
 
 }

@@ -18,6 +18,7 @@ public class StudentService {
     private SortingService sortingService;
 
     public List<Student> getStudents() {
+
         return studentRepository.findAll();
     }
 
