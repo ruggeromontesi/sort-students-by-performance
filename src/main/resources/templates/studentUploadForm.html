@@ -8,7 +8,7 @@
 	<div>
 		<form method="POST" enctype="multipart/form-data" action="/read">
 			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td>select a text file with	student data:</td><td><input type="file" name="file" /></td></tr>
 				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
 			</table>
 		</form>
@@ -22,7 +22,13 @@
 		</ul>
 	</div>
 	<form action="#" data-th-action="@{/sort}" data-th-object="${model}" method="post">
-		<button type="submit" name="action" value="sort">sort</button>
+		<button type="submit" name="action" value="sort">bubblesort</button>
+	</form>
+	<form action="#" data-th-action="@{/sort}" data-th-object="${model}" method="post">
+		<button type="submit" name="action" value="sort">heapsort</button>
+	</form>
+	<form action="#" data-th-action="@{/sort}" data-th-object="${model}" method="post">
+		<button type="submit" name="action" value="sort">mergesort</button>
 	</form>
 	<form action="#" data-th-action="@{/reset}" data-th-object="${model}" method="post">
 		<button type="submit" name="action" value="reset">reset</button>
