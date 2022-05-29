@@ -43,6 +43,24 @@ public class Student {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+
+
+        if (!(o instanceof Student)) {
+            return  false;
+        } else {
+            Student student = (Student) o;
+            return this.id == student.id && this.name.equals(student.name) && this.rating == student.rating;
+        }
+
+
+    }
+
+
+
+    @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +

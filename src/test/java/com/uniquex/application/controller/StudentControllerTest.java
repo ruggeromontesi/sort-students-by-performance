@@ -45,10 +45,11 @@ public class StudentControllerTest {
 
         List<Student> newList = new ArrayList<>();
         newList.add(new Student().setName("ruggero").setRating(6.0));
+        newList.add(new Student().setName("michele").setRating(8.0));
 
        this.mvc.perform(get("/read")).andExpect(status().isOk())
                .andExpect(
-                       model().attribute("students",list
+                       model().attribute("students",newList
                                ));
 
     }
