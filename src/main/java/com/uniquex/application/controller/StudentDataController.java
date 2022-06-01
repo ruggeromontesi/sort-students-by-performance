@@ -8,6 +8,7 @@ import com.uniquex.application.StorageFileNotFoundException;
 import com.uniquex.application.StorageService;
 import com.uniquex.application.entity.Student;
 import com.uniquex.application.service.FileReadingService;
+import com.uniquex.application.service.StudentFileStorageService;
 import com.uniquex.application.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -28,8 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class StudentDataController {
 
-
    private final StorageService storageService;
+
+   private final StudentFileStorageService studentFileStorageService;
 
    @Autowired
    private  StudentService studentService;
@@ -38,8 +40,10 @@ public class StudentDataController {
    private final FileReadingService fileReadingService;
 
    @Autowired
-   public StudentDataController(StorageService storageService, StudentService studentService) {
+   public StudentDataController(StorageService storageService, StudentService studentService,
+                                StudentFileStorageService studentFileStorageService) {
       this.storageService = storageService;
+      this.studentFileStorageService = studentFileStorageService;
       fileReadingService = new FileReadingService(studentService);
    }
 
@@ -64,6 +68,14 @@ public class StudentDataController {
 
    }
 
+   @GetMapping("/students/{filename:.+}")
+   public ResponseEntity<Resource> serveSortedStudentsFile(@PathVariable String filename){
+      Resource file = studentFileStorageService.loadAsResource(filename);
+      return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+              "attachment; fileName = \"" + file.getFilename() + "\"" ).body(file);
+
+   }
+
    @PostMapping("/")
    public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                   RedirectAttributes redirectAttributes) {
@@ -79,6 +91,14 @@ public class StudentDataController {
    @GetMapping("/read")
    public String read(Model model) throws IOException {
       model.addAttribute("students", studentService.getStudents());
+      model.addAttribute("sortedstudentfiles",
+              studentFileStorageService.loadAll().map(path ->
+                              MvcUriComponentsBuilder.fromMethodName(
+                                              StudentDataController.class,
+                                              "serveSortedStudentsFile",
+                                              path.getFileName().toString())
+                                      .build().toUri().toString()).
+                      collect(Collectors.toList()));
       return "studentUploadForm";
    }
 
@@ -120,22 +140,6 @@ public class StudentDataController {
       studentService.sortStudents(sortingAlgorithm, saveToFile);
       model.addAttribute("students", studentService.getStudents());
       return "redirect:/read";
-   }
-
-   @ExceptionHandler(StorageFileNotFoundException.class)
-   public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-      return ResponseEntity.notFound().build();
-   }
-
-   public String ruggeroCreaNuovaDirectory() {
-      return "Directory created";
-   }
-
-
-   @GetMapping("/students")
-   public List<Student> getStudentData() {
-      final List<Student> studentData = studentService.getStudents();
-      return studentData;
    }
 
 }

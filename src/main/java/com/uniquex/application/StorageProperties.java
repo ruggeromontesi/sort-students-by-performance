@@ -12,6 +12,8 @@ public class StorageProperties {
 
 	private String ruggeroLocation = "ruggero-dir";
 
+	private String sortedStudentFileLocation = "output-files";
+
 	public String getLocation() {
 		return location;
 	}
@@ -28,5 +30,9 @@ public class StorageProperties {
 
 	public void setRuggeroLocation(String ruggeroLocation) {
 		this.ruggeroLocation = ruggeroLocation;
+	}
+
+	public String getSortedStudentFileLocation() {
+		return sortedStudentFileLocation;
 	}
 }

@@ -22,9 +22,6 @@ public class FileSystemStorageService implements StorageService {
 
    private final Path ruggeroLocation;
 
-
-
-
    @Autowired
    public FileSystemStorageService(StorageProperties properties) {
       this.rootLocation = Paths.get(properties.getLocation());
