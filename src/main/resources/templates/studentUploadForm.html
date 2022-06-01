@@ -6,7 +6,7 @@
 	</div>
 
 	<div>
-		<form method="POST" enctype="multipart/form-data" action="/read">
+		<form method="POST" enctype="multipart/form-data" action="/uniquex/read">
 			<table>
 				<tr><td>select a text file with	student data:</td><td><input type="file" name="file" /></td></tr>
 				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
@@ -57,6 +57,19 @@
 			<td th:text="${student.rating}"></td>
 		</tr>
 	</table>
+	<form action="#" data-th-action="@{/students/sort?sortingAlgorithm=bubblesort&saveToFile=true}" data-th-object="${model}" method="post">
+		<button type="submit" name="action" value="reset">Save to file</button>
+	</form>
+
+	<h1>File of sorted students</h1>
+
+	<div>
+		<ul>
+			<li th:each="sortedstudentsfile : ${sortedstudentfiles}">
+				<a th:href="${sortedstudentsfile}" th:text="${sortedstudentsfile}" />
+			</li>
+		</ul>
+	</div>
 
 </body>
 </html>

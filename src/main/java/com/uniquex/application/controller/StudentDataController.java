@@ -12,6 +12,7 @@ import com.uniquex.application.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,23 +79,16 @@ public class StudentDataController {
    @GetMapping("/read")
    public String read(Model model) throws IOException {
       model.addAttribute("students", studentService.getStudents());
-
       return "studentUploadForm";
    }
-
-
-
 
    @PostMapping("/read")
    public String readFileUpload(@RequestParam("file") MultipartFile file,
                                   RedirectAttributes redirectAttributes) {
       fileReadingService.readFile(file);
-
       storageService.store(file);
-
       redirectAttributes.addFlashAttribute("message",
             "You successfully uploaded " + file.getOriginalFilename() + "!");
-
       return "redirect:/read";
    }
 
@@ -109,6 +103,21 @@ public class StudentDataController {
    @PostMapping(value = {"/reset"})
    public String reset(Model model) {
       studentService.deleteAll();
+      model.addAttribute("students", studentService.getStudents());
+      return "redirect:/read";
+   }
+
+
+   public ResponseEntity<List<Student>> sortStudentsAlternative(@RequestParam String sortingAlgorithm,
+                                                                @RequestParam(name = "saveToFile", defaultValue = "false") Boolean saveToFile) {
+      return new ResponseEntity<>(studentService.sortStudents(sortingAlgorithm, saveToFile), HttpStatus.OK);
+   }
+
+   @PostMapping(value = {"/students/sort"})
+   public String sortStudentsAndSaveToFile(@RequestParam String sortingAlgorithm,
+                                         @RequestParam(name = "saveToFile", defaultValue = "false") Boolean saveToFile,
+                                           Model model) {
+      studentService.sortStudents(sortingAlgorithm, saveToFile);
       model.addAttribute("students", studentService.getStudents());
       return "redirect:/read";
    }
